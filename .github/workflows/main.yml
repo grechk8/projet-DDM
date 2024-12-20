@@ -1,0 +1,40 @@
+name: Projet-DDM CI/CD Pipeline
+
+# Événements déclenchant le pipeline
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  # Étape 1 : Construire le projet
+  build:
+    runs-on: ubuntu-latest  # Machine virtuelle pour exécuter les tâches
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3  # Télécharge le code source depuis GitHub
+
+    - name: Installer les dépendances
+      run: |
+        echo "Installation des dépendances pour projet-DDM"
+        # Par exemple, installer Python ou d'autres outils
+        # pip install -r requirements.txt
+
+    - name: Lancer les tests
+      run: |
+        echo "Exécution des tests pour projet-DDM"
+        # Par exemple, lancer pytest ou d'autres outils de tests
+        # pytest
+
+  # Étape 2 : Déployer (si les tests réussissent)
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build  # Ne se lance que si 'build' réussit
+    steps:
+    - name: Déployer en staging
+      run: |
+        echo "Déploiement du projet-DDM sur staging"
+        # Ajoutez ici vos commandes de déploiement (rsync, scp, etc.)
